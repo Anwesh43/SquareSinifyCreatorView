@@ -208,4 +208,13 @@ class SquareSinifyCreatorView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : SquareSinifyCreatorView {
+            val view : SquareSinifyCreatorView = SquareSinifyCreatorView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
