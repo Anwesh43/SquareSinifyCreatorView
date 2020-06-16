@@ -34,13 +34,17 @@ fun Canvas.drawSquareSinify(i : Int, scale : Float, w : Float, h : Float, paint 
     val sc3 : Float = sf.divideScale(2, divs)
     val sj : Float = 1f - 2 * i
     save()
-    translate(w / 2, (h / 2) * sc1 - sj * size * 0.5f * sc3)
+    translate(w / 2, (h / 2) * sc1)
+    save()
+    translate(0f, -sj * size * 0.5f * sc3)
     for (j in 0..(parts - 1)) {
         save()
         rotate(180f * j * sc2)
         drawLine(0f, 0f, size * 0.5f, 0f, paint)
         restore()
     }
+    restore()
+    drawLine(size * 0.5f * sj, -size * 0.5f * sc3, size * 0.5f * sj, size * 0.5f * sc3, paint)
     restore()
 }
 
