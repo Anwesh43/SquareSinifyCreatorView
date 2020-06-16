@@ -35,7 +35,7 @@ fun Canvas.drawSquareSinify(i : Int, scale : Float, w : Float, h : Float, paint 
     val sj : Float = 1f - 2 * i
     save()
     translate(w / 2, (h / 2) * sc1 - sj * size * 0.5f * sc3)
-    for (j in 0..1) {
+    for (j in 0..(parts - 1)) {
         save()
         rotate(180f * j * sc2)
         drawLine(0f, 0f, size * 0.5f, 0f, paint)
@@ -51,7 +51,7 @@ fun Canvas.drawSSCNode(i : Int, scale : Float, paint : Paint) {
     paint.strokeCap = Paint.Cap.ROUND
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     save()
-    for (j in 0..1) {
+    for (j in 0..(parts - 1)) {
         drawSquareSinify(j, scale, w, h, paint)
     }
     restore()
@@ -59,14 +59,16 @@ fun Canvas.drawSSCNode(i : Int, scale : Float, paint : Paint) {
 
 class SquareSinifyCreatorView(ctx : Context) : View(ctx) {
 
-    override fun onDraw(canvas : Canvas) {
+    private val renderer : Renderer = Renderer(this)
 
+    override fun onDraw(canvas : Canvas) {
+        renderer.render(canvas)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                renderer.handleTap()
             }
         }
         return true
