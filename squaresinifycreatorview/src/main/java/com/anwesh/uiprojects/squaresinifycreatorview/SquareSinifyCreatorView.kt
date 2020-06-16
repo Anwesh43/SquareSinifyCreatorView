@@ -183,4 +183,27 @@ class SquareSinifyCreatorView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : SquareSinifyCreatorView) {
+
+        private val animator : Animator = Animator(view)
+        private val ssc : SquareSinifyCreator = SquareSinifyCreator(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            ssc.draw(canvas, paint)
+            animator.animate {
+                ssc.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ssc.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
